@@ -1,4 +1,6 @@
 #cloud-config
+packages:
+  - git
 ansible:
   install_method: distro
   package_name: ansible
