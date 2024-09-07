@@ -1,0 +1,7 @@
+#cloud-config
+ansible:
+  install_method: distro
+  package_name: ansible
+  pull:
+    url: https://github.com/kebien6020/cloud-init-data.git
+    playbook_name: ansible/nginx/playbook.yml
