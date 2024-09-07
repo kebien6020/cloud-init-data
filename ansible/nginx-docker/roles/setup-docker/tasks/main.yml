@@ -1,0 +1,18 @@
+- ansible.builtin.package:
+    name: dnf-plugins-core
+    state: present
+
+- ansible.builtin.command:
+    cmd: dnf config-manager --add-repo=https://download.docker.com/linux/fedora/docker-ce.repo
+
+- ansible.builtin.dnf:
+    name:
+    - docker-ce
+    - docker-ce-cli
+    - containerd.io
+    state: present
+
+- ansible.builtin.systemd:
+    name: docker
+    enabled: true
+    state: started

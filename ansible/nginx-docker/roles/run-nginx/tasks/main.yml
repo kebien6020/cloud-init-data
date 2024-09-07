@@ -1,0 +1,5 @@
+- community.docker.docker_container:
+    name: nginx
+    image: nginx
+    published_ports:
+    - 80:80
