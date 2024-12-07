@@ -1,0 +1,6 @@
+- ansible.builtin.package:
+    name: "{{ item }}"
+    state: present
+  loop:
+    - xl2tpd
+    - strongswan
