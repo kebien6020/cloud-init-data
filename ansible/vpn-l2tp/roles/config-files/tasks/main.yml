@@ -1,0 +1,20 @@
+---
+- name: xl2tpd config file
+  ansible.builtin.copy:
+    src: xl2tpd.conf
+    dest: /etc/xl2tpd/xl2tpd.conf
+
+- name: ppp options file
+  ansible.builtin.copy:
+    src: options.xl2tpd
+    dest: /etc/ppp/options.xl2tpd
+
+- ansible.builtin.file:
+    state: directory
+    path: /etc/swanctl
+    mode: '0755'
+
+- name: swanctl.conf
+  ansible.builtin.copy:
+    src: swanctl.conf
+    dest: /etc/swanctl/swanctl.conf

@@ -1,0 +1,11 @@
+refuse-pap
+refuse-chap
+refuse-mschap
+require-mschap-v2
+require-mppe-128
+noccp
+noauth
+persist
+maxfail 0
+debug
+dump

@@ -2,3 +2,4 @@
   roles:
   - role: setup-ansible-pull
   - role: install-packages
+  - role: config-files
