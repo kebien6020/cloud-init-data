@@ -1,5 +1,4 @@
 - hosts: localhost
   roles:
-  - role: setup-ansible-pull
   - role: install-packages
   - role: wireguard
