@@ -35,6 +35,10 @@
     dest: /root/peer.conf
     mode: '0644'
 
+- name: Create peer QR code
+  ansible.builtin.shell: qrencode -t ansiutf8 < /root/peer.conf > /root/peer_qr_code
+  register: qr_code
+
 - name: Enable ipv4 forwarding
   ansible.posix.sysctl:
     name: net.ipv4.ip_forward

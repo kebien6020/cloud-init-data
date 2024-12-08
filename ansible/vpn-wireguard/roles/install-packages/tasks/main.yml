@@ -3,3 +3,4 @@
     state: present
   loop:
     - wireguard
+    - qrencode
