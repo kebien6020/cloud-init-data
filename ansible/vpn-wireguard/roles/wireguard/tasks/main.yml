@@ -1,0 +1,51 @@
+---
+- name: Gen private key
+  ansible.builtin.shell: wg genkey | tee /root/srv_private_key
+  register: private_key
+
+- name: Gen public key
+  ansible.builtin.shell: echo "{{ private_key.stdout }}" | wg pubkey | tee /root/srv_public_key
+  register: public_key
+
+- name: Gen peer private key
+  ansible.builtin.shell: wg genkey | tee /root/peer_private_key
+  register: peer_private_key 
+
+- name: Gen peer public key
+  ansible.builtin.shell: echo "{{ peer_private_key.stdout }}" | wg pubkey | tee /root/peer_public_key
+  register: peer_public_key
+
+- name: Get name of default interface
+  ansible.builtin.shell: ip -4 route list default | cut -d ' ' -f 5
+  register: default_interface
+
+- name: Get server public ip
+  ansible.builtin.command: curl -fsSL ipconfig.me
+  register: public_ip
+
+- name: Create wireguard interface file
+  ansible.builtin.template:
+    src: wg0.conf
+    dest: /etc/wireguard/wg0.conf
+    mode: '0600'
+
+- name: Create peer file
+  ansible.builtin.template:
+    src: peer_wg0.conf
+    dest: /root/peer.conf
+    mode: '0644'
+
+- name: Enable ipv4 forwarding
+  ansible.posix.sysctl:
+    name: net.ipv4.ip_forward
+    value: '1'
+    reload: true
+
+- name: Start wireguard service
+  ansible.builtin.systemd:
+    name: wg-quick@wg0.service
+    state: started
+    enabled: yes
+
+- name: Add peer to wireguard
+  ansible.builtin.shell: wg set wg0 peer {{ peer_public_key.stdout }} allowed-ips 10.8.0.2

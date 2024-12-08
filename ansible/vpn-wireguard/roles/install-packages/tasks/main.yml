@@ -2,7 +2,4 @@
     name: "{{ item }}"
     state: present
   loop:
-    - xl2tpd
-    - strongswan
-    - strongswan-swanctl
-    - charon-systemd
+    - wireguard

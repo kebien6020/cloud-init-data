@@ -1,0 +1,4 @@
+ansible_pull_url: https://github.com/kebien6020/cloud-init-data.git
+ansible_pull_timer: |
+  OnBootSec=5m
+  OnCalendar=*/5 * * * *
