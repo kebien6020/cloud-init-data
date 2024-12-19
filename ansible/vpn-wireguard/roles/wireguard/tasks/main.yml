@@ -23,6 +23,10 @@
   ansible.builtin.command: curl -fsSL ipconfig.me
   register: public_ip
 
+- name: Calculate allowed ips for peer conf
+  ansible.builtin.script: calculate_ips {{ public_ip.stdout }}/32 192.168.0.0/16
+  register: allowed_ips
+
 - name: Create wireguard interface file
   ansible.builtin.template:
     src: wg0.conf
